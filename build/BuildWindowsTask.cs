@@ -45,17 +45,17 @@ public sealed class BuildWindowsTask : FrostingTask<BuildContext>
 
     private void BuildForArchitecture(BuildContext context, string cmakeArch, string rid, string cmakeOptions = "")
     {
-        var buildWorkingDir = $"crunch_build_{rid}";
+        var buildWorkingDir = $"spirvcross_build_{rid}";
         Directory.CreateDirectory(buildWorkingDir);
         // Path relative to the buildWorkingDir
-        var cmakeListsPath = System.IO.Path.Combine("..", "crunch", "CMakeLists.txt");
-        context.StartProcess("cmake", new ProcessSettings { WorkingDirectory = buildWorkingDir, Arguments = $"{cmakeOptions} -A {cmakeArch} -DBUILD_CRUNCH=ON -DBUILD_SHARED_LIBCRN=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_EXAMPLES=OFF {cmakeListsPath}" });
+        var cmakeListsPath = System.IO.Path.Combine("..", "spirvcross", "CMakeLists.txt");
+        context.StartProcess("cmake", new ProcessSettings { WorkingDirectory = buildWorkingDir, Arguments = $"{cmakeOptions} -A {cmakeArch} {cmakeListsPath}" });
         context.ReplaceTextInFiles($"{buildWorkingDir}/_crunch/crunch.vcxproj", "MultiThreadedDLL", "MultiThreaded");
         context.ReplaceTextInFiles($"{buildWorkingDir}/crnlib/crn-obj.vcxproj",  "MultiThreadedDLL", "MultiThreaded");
         context.ReplaceTextInFiles($"{buildWorkingDir}/crnlib/crn.vcxproj", "MultiThreadedDLL", "MultiThreaded");
         context.StartProcess("cmake", new ProcessSettings { WorkingDirectory = buildWorkingDir, Arguments = "--build . --config release" });
         Directory.CreateDirectory($"{context.ArtifactsDir}/{rid}");
-        var files = Directory.GetFiles(System.IO.Path.Combine (buildWorkingDir, "Release"), "crunch.exe", SearchOption.TopDirectoryOnly);
-        context.CopyFile(files[0], $"{context.ArtifactsDir}/{rid}/crunch.exe");
+        var files = Directory.GetFiles(System.IO.Path.Combine (buildWorkingDir, "Release"), "spirv-cross.exe", SearchOption.TopDirectoryOnly);
+        context.CopyFile(files[0], $"{context.ArtifactsDir}/{rid}/spirv-cross.exe");
     }
 }
