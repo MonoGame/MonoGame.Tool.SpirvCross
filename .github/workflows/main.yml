@@ -52,9 +52,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Rename License File
-        run: mv ./spirvcross/license.txt ./spirvcross/LICENSE          
-
       - name: Run CAKE
         run: dotnet run --project ./build/Build.csproj -- --target=Package --universalBinary=true --toolname=spirvcross --executablename=spirv-cross --licensepath=spirvcross/LICENSE
         env:
