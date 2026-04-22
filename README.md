@@ -1,5 +1,4 @@
-# MonoGame.Tool.Crunch
-MonoGame tooling build for crunch
+# MonoGame.Tool.SpirvCross
+MonoGame tooling build for spirv-cross
 
-This tool can be used to compress an image into various texture compression
-formats.
+This tool can be used to convert spirv shaders to glsl and metal
