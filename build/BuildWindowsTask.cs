@@ -54,9 +54,6 @@ public sealed class BuildWindowsTask : FrostingTask<BuildContext>
         {
             context.ReplaceTextInFiles(file, "MultiThreadedDLL", "MultiThreaded");
         }
-        //context.ReplaceTextInFiles($"{buildWorkingDir}/_crunch/crunch.vcxproj", "MultiThreadedDLL", "MultiThreaded");
-        //context.ReplaceTextInFiles($"{buildWorkingDir}/crnlib/crn-obj.vcxproj",  "MultiThreadedDLL", "MultiThreaded");
-        //context.ReplaceTextInFiles($"{buildWorkingDir}/crnlib/crn.vcxproj", "MultiThreadedDLL", "MultiThreaded");
         context.StartProcess("cmake", new ProcessSettings { WorkingDirectory = buildWorkingDir, Arguments = "--build . --config release" });
         Directory.CreateDirectory($"{context.ArtifactsDir}/{rid}");
         var files = Directory.GetFiles(System.IO.Path.Combine (buildWorkingDir, "Release"), "spirv-cross.exe", SearchOption.TopDirectoryOnly);
