@@ -1,0 +1,6 @@
+[submodule "crunch"]
+	path = spirvcross
+	url = https://github.com/KhronosGroup/SPIRV-Cross.git
+[submodule "buildscripts"]
+	path = buildscripts
+	url = https://github.com/MonoGame/MonoGame.Tool.BuildScripts.git
